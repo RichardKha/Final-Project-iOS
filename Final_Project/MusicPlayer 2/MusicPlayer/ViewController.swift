@@ -7,6 +7,7 @@
 
 import UIKit
 
+//Global song list
 var songs = [Song]()
 
 
@@ -25,6 +26,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func configureSongs() {
         
+        //Add sample songs to song array
         songs.append(Song(name: "Sample Long",
                           albumName: "Sample Music",
                           artistName: "Sample Tech",
@@ -45,6 +47,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     
+    //Function to transition to add new song scene
     @IBAction func nextView(_ sender: UIButton) {
         self.performSegue(withIdentifier: "newSongSegue", sender: self)
     }
@@ -52,11 +55,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     
-    //table
+    //table view to return amount of songs
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return songs.count
     }
     
+    //populate table view cells, set song title and album name, and set text fond and size
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         //configure
@@ -89,8 +93,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         present(vc, animated: true)
     }
     
+    //variable for delete button
     @IBOutlet var deleteButton : UIButton!
     
+    //function to enable editing for deleting songs
     @IBAction func deleteSong(_ sender: UIButton) {
         if table.isEditing {
             deleteButton.setTitle("Delete", for: .normal)
@@ -101,12 +107,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    //Refresh table for new songs to appear
     @IBAction func refresh(_ sender: UIButton) {
         table.beginUpdates()
         table.insertRows(at: [IndexPath(row: somesong.count-1, section: 0)], with: .left)
         table.endUpdates()
     }
     
+    //Function to delete songs from the array and update it in table view
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             songs.remove(at: indexPath.row)
@@ -120,6 +128,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
 }
 
+//Structure for our song
 struct Song {
     let name: String
     let albumName: String
