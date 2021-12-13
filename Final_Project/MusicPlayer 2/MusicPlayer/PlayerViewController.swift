@@ -9,21 +9,25 @@ import UIKit
 
 class PlayerViewController: UIViewController {
 
+    //variables
     public var position: Int = 0
     public var songs: [Song] = []
     
+    //Ui view variable
     @IBOutlet var holder: UIView!
     
     var player: AVAudioPlayer?
     
     //ui elements
     
+    //Album image 
     private let albumImageView: UIImageView = {
        let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
+    //Song name label
     private let songNameLabel: UILabel = {
        let label = UILabel()
         label.textAlignment = .center
@@ -31,6 +35,7 @@ class PlayerViewController: UIViewController {
         return label
     }()
     
+    //Artist name label
     private let artistNameLabel: UILabel = {
        let label = UILabel()
         label.textAlignment = .center
@@ -38,6 +43,7 @@ class PlayerViewController: UIViewController {
         return label
     }()
     
+    //Album name label
     private let albumNameLabel: UILabel = {
        let label = UILabel()
         label.textAlignment = .center
@@ -93,6 +99,7 @@ class PlayerViewController: UIViewController {
         
         albumImageView.translatesAutoresizingMaskIntoConstraints = false
         
+        //Set constraints for album image
         let constraintx = albumImageView.centerXAnchor.constraint(equalTo: holder.centerXAnchor)
         let constrainty = albumImageView.centerYAnchor.constraint(equalTo: holder.centerYAnchor)
         let constraintl = albumImageView.leadingAnchor.constraint(equalTo: holder.leadingAnchor, constant: 50)
@@ -138,6 +145,7 @@ class PlayerViewController: UIViewController {
         albumNameLabel.translatesAutoresizingMaskIntoConstraints = false
         artistNameLabel.translatesAutoresizingMaskIntoConstraints = false
         
+        //Set constraints for song name label
         let labelx = songNameLabel.centerXAnchor.constraint(equalTo: holder.centerXAnchor)
         let labely = songNameLabel.centerYAnchor.constraint(equalTo: holder.centerYAnchor)
         let labell = songNameLabel.leadingAnchor.constraint(equalTo: holder.leadingAnchor, constant: 50)
@@ -145,6 +153,7 @@ class PlayerViewController: UIViewController {
         let labeltop = songNameLabel.topAnchor.constraint(equalTo: albumImageView.topAnchor, constant: 70)
         let labelbot = songNameLabel.bottomAnchor.constraint(equalTo: holder.bottomAnchor, constant: -140)
         
+        //Set constraints for album name label
         let albumx = albumNameLabel.centerXAnchor.constraint(equalTo: holder.centerXAnchor)
         let albumy = albumNameLabel.centerYAnchor.constraint(equalTo: holder.centerYAnchor)
         let albuml = albumNameLabel.leadingAnchor.constraint(equalTo: holder.leadingAnchor, constant: 50)
@@ -152,6 +161,7 @@ class PlayerViewController: UIViewController {
         let albumtop = albumNameLabel.topAnchor.constraint(equalTo: songNameLabel.topAnchor, constant: 70)
         let albumbot = albumNameLabel.bottomAnchor.constraint(equalTo: holder.bottomAnchor, constant: -120)
         
+        //Set constraints for arist name label
         let artistx = artistNameLabel.centerXAnchor.constraint(equalTo: holder.centerXAnchor)
         let artisty = artistNameLabel.centerYAnchor.constraint(equalTo: holder.centerYAnchor)
         let artistl = artistNameLabel.leadingAnchor.constraint(equalTo: holder.leadingAnchor, constant: 50)
@@ -159,6 +169,8 @@ class PlayerViewController: UIViewController {
         let artisttop = artistNameLabel.topAnchor.constraint(equalTo: albumNameLabel.topAnchor, constant: 70)
         let artistbot = artistNameLabel.bottomAnchor.constraint(equalTo: holder.bottomAnchor, constant: -100)
         
+        
+        //Activate all of the constraints
         labelx.isActive = true
         labely.isActive = true
         labell.isActive = true
@@ -194,7 +206,7 @@ class PlayerViewController: UIViewController {
         
         nextButton.setBackgroundImage(UIImage(systemName: "forward.fill"), for: .normal)
         
-        //frames
+        //frames for the buttons
         let yPosition = artistNameLabel.frame.origin.y + 70 + 20
         let size: CGFloat = 70
         
@@ -213,14 +225,14 @@ class PlayerViewController: UIViewController {
                                        width: size,
                                        height: size)
         
-        //actions
+        //actions for touching buttons
         playPauseButton.addTarget(self, action: #selector(didTapPlayPausebutton), for: .touchUpInside)
         
         nextButton.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
         
         backButton.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
         
-        //styling
+        //styling of the buttons
         playPauseButton.tintColor = .black
         backButton.tintColor = .black
         nextButton.tintColor = .black
@@ -233,6 +245,7 @@ class PlayerViewController: UIViewController {
         nextButton.translatesAutoresizingMaskIntoConstraints = false
         backButton.translatesAutoresizingMaskIntoConstraints = false
         
+        //Set constraints for play/pause button
         let playx = playPauseButton.centerXAnchor.constraint(equalTo: holder.centerXAnchor)
         let playy = playPauseButton.centerYAnchor.constraint(equalTo: holder.centerYAnchor)
         let playl = playPauseButton.leadingAnchor.constraint(equalTo: holder.leadingAnchor, constant: 130)
@@ -240,6 +253,7 @@ class PlayerViewController: UIViewController {
         let playtop = playPauseButton.topAnchor.constraint(equalTo: artistNameLabel.topAnchor, constant: 150)
         let playbot = playPauseButton.bottomAnchor.constraint(equalTo: holder.bottomAnchor, constant: -50)
         
+        //Set constraints for next song button
         let nextx = nextButton.centerXAnchor.constraint(equalTo: holder.centerXAnchor)
         let nexty = nextButton.centerYAnchor.constraint(equalTo: holder.centerYAnchor)
         let nextl = nextButton.leadingAnchor.constraint(equalTo: playPauseButton.leadingAnchor, constant: 100)
@@ -247,6 +261,7 @@ class PlayerViewController: UIViewController {
         let nexttop = nextButton.topAnchor.constraint(equalTo: artistNameLabel.topAnchor, constant: 150)
         let nextbot = nextButton.bottomAnchor.constraint(equalTo: holder.bottomAnchor, constant: -50)
         
+        //Set constraints for back button
         let backx = backButton.centerXAnchor.constraint(equalTo: holder.centerXAnchor)
         let backy = backButton.centerYAnchor.constraint(equalTo: holder.centerYAnchor)
         let backl = backButton.leadingAnchor.constraint(equalTo: holder.leadingAnchor, constant: 40)
@@ -254,6 +269,7 @@ class PlayerViewController: UIViewController {
         let backtop = backButton.topAnchor.constraint(equalTo: artistNameLabel.topAnchor, constant: 150)
         let backbot = backButton.bottomAnchor.constraint(equalTo: holder.bottomAnchor, constant: -50)
         
+        //Activate constraints
         playx.isActive = true
         playy.isActive = true
         playl.isActive = true
@@ -275,7 +291,7 @@ class PlayerViewController: UIViewController {
         backtop.isActive = true
         backbot.isActive = true
         
-        //slider
+        // volume slider
         
         
         let slider = UISlider(frame: CGRect(x: 20, y: holder.frame.size.height - 60, width: holder.frame.size.width-40, height: 50))
@@ -285,6 +301,7 @@ class PlayerViewController: UIViewController {
         
         slider.translatesAutoresizingMaskIntoConstraints = false
         
+        //Set constraints for volume slider
         let sliderx = slider.centerXAnchor.constraint(equalTo: holder.centerXAnchor)
         let slidery = slider.centerYAnchor.constraint(equalTo: holder.centerYAnchor)
         let sliderl = slider.leadingAnchor.constraint(equalTo: holder.leadingAnchor, constant: 40)
@@ -301,6 +318,7 @@ class PlayerViewController: UIViewController {
         
     }
     
+    //Function to check if back button was clicked
     @objc func didTapBackButton(){
         if position > 0 {
             position = position - 1
@@ -314,6 +332,7 @@ class PlayerViewController: UIViewController {
         
     }
     
+    //Function to check if next button was clicked
     @objc func didTapNextButton(){
         if position < songs.count - 1 {
             position = position + 1
@@ -326,6 +345,7 @@ class PlayerViewController: UIViewController {
         
     }
     
+    //Function to check if pause was clicked
     @objc func didTapPlayPausebutton(){
         if player?.isPlaying == true {
             //pause
@@ -343,6 +363,7 @@ class PlayerViewController: UIViewController {
         
     }
     
+    //Function to check if slider was moved for volume
     @objc func didSlideSlider(_ slider: UISlider) {
         let value = slider.value
         player?.volume = value
@@ -350,7 +371,7 @@ class PlayerViewController: UIViewController {
     }
     
     
-    
+    //Function to stop music if song is closed
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if let player = player {
